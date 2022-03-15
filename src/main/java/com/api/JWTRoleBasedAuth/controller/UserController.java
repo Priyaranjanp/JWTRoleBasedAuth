@@ -49,6 +49,7 @@ public class UserController {
 		String pwd = user.getPassword();
 		String encodedPwd = bCryptPasswordEncoder.encode(pwd);
 		user.setPassword(encodedPwd);
+		System.out.println("User Saved");
 		return userServiceImpl.save(user);
 	}
 	@GetMapping("/findAll")
@@ -71,6 +72,7 @@ public class UserController {
 			else if (user.getRoles().getRoleId()==2){
 				final String token = jwtTokenUtil.generateToken(userDetails);
 				userRequest.setAdmin(true);
+				System.out.println("JWT generated");
 				return ResponseEntity.ok(new UserRequest(userRequest.getUsername(),token,userRequest.isAdmin(),userRequest.isUser()));
 			}
 			else {
